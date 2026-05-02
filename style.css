@@ -1,0 +1,295 @@
+/* =========================================================
+   COMANDOS GERAIS
+   Estilos usados em mais de uma página
+========================================================= */
+
+body {
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-color: rgba(9, 11, 23, 0.771);
+
+    color: rgb(226, 232, 240);
+    font-family: Arial, sans-serif;
+    text-align: center;
+
+    margin: 0;
+}
+
+h1, 
+h2 {
+    color: rgb(56, 189, 248);
+    border: 5px solid rgb(56, 189, 248);
+
+    margin: 10px;
+    padding: 12px 25px;
+
+    background-color: rgba(9, 11, 23, 0.771);
+    display: inline-block;
+
+    border-radius: 12px;
+}
+
+input {
+    padding: 10px;
+    margin: 10px;
+
+    border-radius: 5px;
+    border: none;
+}
+
+/* Botão padrão do projeto */
+button {
+    display: block;
+    margin: 10px auto;
+
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    background-color: rgb(56, 189, 248);
+    color: rgb(15, 23, 42);
+
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: rgb(125, 211, 252);
+}
+
+/* Botão desabilitado */
+button:disabled {
+    background-color: gray;
+    color: rgb(220, 220, 220);
+
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Botão escolhido pelo jogador */
+.botao-escolhido {
+    background-color: rgb(34, 197, 94);
+    color: white;
+}
+
+
+/* =========================================================
+   PÁGINA INDEX
+   Tela inicial do jogo
+========================================================= */
+
+.pagina-index {
+    background-image: url(JogoMagoTela.png);
+
+    /* Faz a imagem preencher a tela */
+    background-size: cover;
+    /* Centraliza a imagem */
+    background-position: center;
+    /* Impede que a imagem se repita */
+    background-repeat: no-repeat;
+    /* Mantém o fundo parado enquanto a página rola */
+    background-attachment: fixed;
+    /* Garante que a página tenha pelo menos a altura da tela */
+    min-height: 100vh;
+    background-color: rgb(0, 0, 0);
+}
+
+/* Botões grandes da tela inicial */
+.pagina-index button {
+    width: 200px;
+    padding: 30px;
+
+    font-size: 25px;
+
+    background-color: rgba(9, 11, 23, 0.771);
+    color: white;
+
+    border: 1px solid rgba(56, 189, 248, 0.8);
+    border-radius: 8px;
+}
+
+.pagina-index button:hover {
+    background-color: #38bdf8;
+    color: #0f172a;
+}
+
+/* Rodapé da página inicial */
+.pagina-index footer {
+    position: fixed;
+    bottom: 10px;
+
+    width: 100%;
+
+    font-size: 12px;
+    color: rgb(3, 3, 3);
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   PÁGINA PERSONAGEM
+   Tela de criação e escolha do personagem
+========================================================= */
+
+.pagina-personagem {
+    background-image: url(JogoMagoTelaPersonagem.png);
+    /* Faz a imagem preencher a tela */
+    background-size: cover;
+    /* Centraliza a imagem */
+    background-position: center;
+    /* Impede que a imagem se repita */
+    background-repeat: no-repeat;
+    /* Mantém o fundo parado enquanto a página rola */
+    background-attachment: fixed;
+    /* Garante que a página tenha pelo menos a altura da tela */
+    min-height: 100vh;
+    background-color: rgb(0, 0, 0);
+}
+
+/* Caixa principal das escolhas */
+.pagina-personagem .container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+
+    margin: 30px auto;
+    padding: 20px;
+
+    width: 90%;
+    max-width: 1200px;
+
+    background-color: rgba(15, 23, 42, 0.85);
+
+    border: 2px solid rgb(56, 189, 248);
+    border-radius: 15px;
+}
+
+/* Coluna dos botões */
+.pagina-personagem .opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Botões da página personagem */
+.pagina-personagem button {
+    width: 220px;
+    padding: 10px 18px;
+
+    font-size: 16px;
+}
+
+/* Imagem do personagem */
+.pagina-personagem .preview img {
+    width: 220px;
+    height: auto;
+
+    border-radius: 12px;
+}
+
+/* Caixa dos atributos */
+.atributos {
+    min-width: 220px;
+    padding: 15px;
+
+    text-align: left;
+
+    background-color: rgba(9, 11, 23, 0.6);
+
+    border: 1px solid rgba(56, 189, 248, 0.8);
+    border-radius: 12px;
+}
+
+.atributos h3 {
+    margin-top: 0;
+
+    color: rgb(56, 189, 248);
+}
+
+.atributos p {
+    margin: 8px 0;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   PÁGINA DO JOGO
+   Tela da jornada do mago
+========================================================= */
+
+.pagina-jogo {
+    background-color: rgba(9, 11, 23, 0.95);
+
+    color: rgb(226, 232, 240);
+    font-family: Arial, sans-serif;
+    text-align: center;
+
+    margin: 0;
+}
+
+#game {
+    width: 85%;
+    max-width: 1000px;
+
+    margin: 25px auto;
+    padding: 25px;
+
+    background-color: rgba(15, 23, 42, 0.9);
+
+    border: 2px solid rgb(56, 189, 248);
+    border-radius: 15px;
+}
+
+.ficha-personagem {
+    margin-bottom: 25px;
+    padding: 15px;
+
+    background-color: rgba(9, 11, 23, 0.75);
+
+    border: 1px solid rgba(56, 189, 248, 0.8);
+    border-radius: 12px;
+}
+
+.ficha-personagem p {
+    margin: 8px 0;
+}
+
+.cena-jogo {
+    margin-top: 20px;
+}
+
+.cena-jogo p {
+    line-height: 1.6;
+    font-size: 17px;
+}
+
+.opcoes-jogo {
+    margin-top: 20px;
+}
+
+.opcoes-jogo button {
+    width: 80%;
+    max-width: 700px;
+
+    padding: 15px;
+    margin: 12px auto;
+
+    font-size: 16px;
+}
+
+.resultado-jogo {
+    margin-top: 20px;
+    padding: 20px;
+
+    background-color: rgba(9, 11, 23, 0.8);
+
+    border: 1px solid rgba(34, 197, 94, 0.8);
+    border-radius: 12px;
+}
+
+.resultado-jogo h3 {
+    color: rgb(34, 197, 94);
+}

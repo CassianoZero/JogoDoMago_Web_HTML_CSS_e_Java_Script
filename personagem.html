@@ -1,0 +1,139 @@
+<!DOCTYPE html> <!-- Define o tipo do documento como HTML5. Ajuda o navegador a interpretar corretamente o código -->
+<!-- Início do HTML. lang="pt-br" indica que o idioma da página é português do Brasil -->
+<html lang="pt-br">
+
+<!-- head: Cabeçalho da página (não aparece diretamente na tela) -->
+<head>
+
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres. Permite usar acentos corretamente (ã, ç, é, etc) -->
+    <title>Criação de Personagem</title> <!-- Título da aba do navegador -->
+
+    <link rel="stylesheet" href="style.css"> <!-- Conecta o arquivo CSS externo. Tudo que for estilo (cores, layout, etc) vem daqui -->
+
+</head>
+
+<!-- body: Corpo da página (tudo que aparece para o usuário) 
+    class=: para definir a classe do elemento, usada para aplicar estilos do CSS -->
+<body class="pagina-personagem">
+
+    <!-- Título principal da página
+        br: pula linha -->
+    <h1>Criação do Personagem</h1>
+    <br>
+
+    <!-- Campo de nome do personagem -->
+    <input 
+        type="text" 
+        id="nome" 
+        placeholder="Digite o nome do seu mago"
+        oninput="verificarConfirmar()"
+    >
+
+    <!-- =========================================================
+         ESCOLHA DE SEXO
+    ========================================================= -->
+    <div class="container">
+
+        <!-- Lado esquerdo: opções -->
+        <div class="opcoes">
+            <h3>Escolha o sexo</h3>
+
+            <button 
+                id="btnMasculino"
+                onmouseover="previewSexo('masculino')" 
+                onclick="escolherSexo('masculino')"
+            >
+                👨 Masculino
+            </button>
+
+            <button 
+                id="btnFeminino"
+                onmouseover="previewSexo('feminino')" 
+                onclick="escolherSexo('feminino')"
+            >
+                👩 Feminino
+            </button>
+        </div>
+
+        <!-- Lado direito: imagem -->
+        <div class="preview">
+            <img id="imagemSexo" src="MagoComum.png" alt="Preview sexo">
+        </div>
+
+    </div>
+
+    <!-- =========================================================
+         ESCOLHA DE CLASSE
+    ========================================================= -->
+    <div class="container">
+
+        <!-- Coluna 1: botões -->
+        <div class="opcoes">
+            <h3>Escolha sua classe</h3>
+
+            <button 
+                id="btnFogo"
+                disabled
+                onmouseover="preview('fogo')" 
+                onclick="escolherClasse(1)"
+            >
+                🔥 Mago de Fogo
+            </button>
+
+            <button 
+                id="btnGelo"
+                disabled
+                onmouseover="preview('gelo')" 
+                onclick="escolherClasse(2)"
+            >
+                ❄️ Mago de Gelo
+            </button>
+
+            <button 
+                id="btnTerra"
+                disabled
+                onmouseover="preview('terra')" 
+                onclick="escolherClasse(3)"
+            >
+                🌱 Mago da Terra
+            </button>
+        </div>
+
+        <!-- Coluna 2: imagem da classe -->
+        <div class="preview">
+            <img id="imagemPreview" src="MagoComum.png" alt="Preview do mago">
+        </div>
+
+        <!-- Coluna 3: atributos -->
+        <div class="atributos" id="atributosClasse">
+            <h3>Atributos</h3>
+            <p>Escolha uma classe para visualizar os atributos.</p>
+        </div>
+
+    </div>
+
+    <!-- Botão de confirmação -->
+    <button id="btnConfirmar" disabled onclick="confirmarPersonagem()">
+        Confirmar Personagem
+    </button>
+
+    <br>
+
+    <!-- Botão para voltar para a página inicial -->
+    <a href="index.html">
+        <button>Página Inicial</button>
+    </a>
+    <br>
+
+    <!-- Footer = rodapé da página, usado para informações extras -->
+    <footer>
+    Criado para aula da universidade - Web Desing
+    </footer>
+
+    <!-- IMPORTANTE: JS no final -->
+    <script src="script.js"></script>
+    <!-- Conecta o arquivo JavaScript. Fica no final para garantir que o HTML já carregou antes do JS rodar -->
+
+</body>
+
+</html>

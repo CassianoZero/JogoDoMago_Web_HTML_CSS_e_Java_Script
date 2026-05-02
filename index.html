@@ -1,0 +1,49 @@
+<!DOCTYPE html> <!-- Define o tipo do documento como HTML5. Ajuda o navegador a interpretar corretamente o código -->
+<!-- Início do HTML. lang="pt-br" indica que o idioma da página é português do Brasil -->
+<html lang="pt-br"> 
+
+<!-- head: Cabeçalho da página (não aparece diretamente na tela) -->
+<head>
+
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres. Permite usar acentos corretamente (ã, ç, é, etc) -->
+    <title>Aventura do Mago</title> <!-- Título da aba do navegador -->
+
+    <link rel="stylesheet" href="style.css"> <!-- Conecta o arquivo CSS externo. Tudo que for estilo (cores, layout, etc) vem daqui -->
+
+</head>
+
+<!-- body: Corpo da página (tudo que aparece para o usuário) -->
+<body class="pagina-index">
+
+    <!-- Título principal da página -->
+    <h1>Aventura do Mago Coletor de Cristais</h1>
+
+    <!-- Div: "caixa" de organização. Usada para agrupar elementos -->
+    <div>
+
+        <!-- Botão - 
+            onclick = quando clicar, executa uma função JavaScript
+            irCriacao() = função que leva para a tela de criação
+            alert() = mostra uma mensagem simples na tela (popup) Aqui é só um placeholder (função ainda não criada) 
+            br: pula linha -->
+        <button onclick="irCriacao()">Jogar</button>
+        <br><br>
+        <button onclick="alert('Sistema de save ainda não implementado')">Carregar Save</button>
+        <br><br>
+        <button onclick="alert('Projeto desenvolvido para aula de Web Design')">Sobre</button>
+        <br><br>
+
+    </div>
+
+    <!-- Footer = rodapé da página, usado para informações extras -->
+    <footer>
+    Criado para aula da universidade - Web Desing
+    </footer>
+
+    <!-- IMPORTANTE: JS no final -->
+    <script src="script.js"></script>
+    <!-- Conecta o arquivo JavaScript. Fica no final para garantir que o HTML já carregou antes do JS rodar -->
+
+</body>
+
+</html>
