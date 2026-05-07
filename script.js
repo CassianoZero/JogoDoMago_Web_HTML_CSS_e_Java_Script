@@ -424,6 +424,10 @@ function irCriacao() {
     window.location.href = "personagem.html";
 }
 
+function irHistorico() {
+    window.location.href = "historico.html";
+}
+
 // ================= IMAGENS DO SEXO =================
 function imagemSexo(tipo) {
     if (tipo === "masculino") {
@@ -433,6 +437,8 @@ function imagemSexo(tipo) {
     if (tipo === "feminino") {
         return "MagaComum.png";
     }
+
+    return "MagoComum.png";
 }
 
 // ================= IMAGENS DA CLASSE =================
@@ -453,9 +459,26 @@ function imagemClasse(classe) {
     return "MagoComum.png";
 }
 
+// ================= IMAGEM DE PERFIL =================
+function imagemPerfil() {
+    if (personagem.sexo === "feminino") {
+        return "PerfilMaga.png";
+    }
+
+    if (personagem.sexo === "masculino") {
+        return "PerfilMago.png";
+    }
+
+    return "PerfilMago.png";
+}
+
 // ================= MOSTRAR ATRIBUTOS =================
 function mostrarAtributos() {
     const area = document.getElementById("atributosClasse");
+
+    if (!area) {
+        return;
+    }
 
     area.innerHTML = `
         <h3>Atributos</h3>
@@ -471,29 +494,35 @@ function mostrarAtributos() {
 // ================= PREVIEW DO SEXO =================
 function previewSexo(tipo) {
 
-    // Se já existe um sexo escolhido, não muda mais por hover
     if (sexoEscolhido) {
         return;
     }
 
     const img = document.getElementById("imagemSexo");
+
+    if (!img) {
+        return;
+    }
+
     img.src = imagemSexo(tipo);
 }
 
 // ================= PREVIEW DA CLASSE =================
 function preview(tipo) {
 
-    // Só permite preview se já tiver sexo escolhido
     if (!sexoEscolhido) {
         return;
     }
 
-    // Se já existe uma classe escolhida, não muda mais por hover
     if (classeEscolhida) {
         return;
     }
 
     const img = document.getElementById("imagemPreview");
+
+    if (!img) {
+        return;
+    }
 
     if (tipo === "fogo") {
         img.src = imagemClasse("Fogo");
@@ -516,7 +545,6 @@ function escolherSexo(tipo) {
 
     document.getElementById("imagemSexo").src = imagemSexo(tipo);
 
-    // Marca botão escolhido
     document.getElementById("btnMasculino").classList.remove("botao-escolhido");
     document.getElementById("btnFeminino").classList.remove("botao-escolhido");
 
@@ -528,12 +556,10 @@ function escolherSexo(tipo) {
         document.getElementById("btnFeminino").classList.add("botao-escolhido");
     }
 
-    // Libera classes
     document.getElementById("btnFogo").disabled = false;
     document.getElementById("btnGelo").disabled = false;
     document.getElementById("btnTerra").disabled = false;
 
-    // Se já tiver classe escolhida, atualiza a imagem da classe para o novo sexo
     if (classeEscolhida) {
         document.getElementById("imagemPreview").src = imagemClasse(personagem.mago);
     } else {
@@ -580,10 +606,8 @@ function escolherClasse(opcao) {
         personagem.ouro = 50;
     }
 
-    // Atualiza a imagem da classe
     document.getElementById("imagemPreview").src = imagemClasse(personagem.mago);
 
-    // Marca botão da classe escolhida
     document.getElementById("btnFogo").classList.remove("botao-escolhido");
     document.getElementById("btnGelo").classList.remove("botao-escolhido");
     document.getElementById("btnTerra").classList.remove("botao-escolhido");
@@ -600,26 +624,25 @@ function escolherClasse(opcao) {
         document.getElementById("btnTerra").classList.add("botao-escolhido");
     }
 
-    // Mostra atributos
     mostrarAtributos();
-
     verificarConfirmar();
 }
 
 // ================= VERIFICAR SE PODE CONFIRMAR =================
 function verificarConfirmar() {
     const nomeInput = document.getElementById("nome");
+    const btnConfirmar = document.getElementById("btnConfirmar");
 
-    if (!nomeInput) {
+    if (!nomeInput || !btnConfirmar) {
         return;
     }
 
     const nomeDigitado = nomeInput.value.trim();
 
     if (nomeDigitado !== "" && sexoEscolhido && classeEscolhida) {
-        document.getElementById("btnConfirmar").disabled = false;
+        btnConfirmar.disabled = false;
     } else {
-        document.getElementById("btnConfirmar").disabled = true;
+        btnConfirmar.disabled = true;
     }
 }
 
@@ -644,17 +667,33 @@ function confirmarPersonagem() {
     }
 
     personagem.nome = nomeInput;
+    personagem.runId = Date.now();
+    personagem.dataRun = new Date().toLocaleString("pt-BR");
+    personagem.historico = "";
+
+    personagem.historico += `Run iniciada em ${personagem.dataRun}.\n`;
+
+    if (personagem.sexo === "feminino") {
+        personagem.historico += `${personagem.nome} iniciou sua jornada como uma Maga de ${personagem.mago}.\n`;
+    } else {
+        personagem.historico += `${personagem.nome} iniciou sua jornada como um Mago de ${personagem.mago}.\n`;
+    }
 
     localStorage.setItem("personagem", JSON.stringify(personagem));
 
     window.location.href = "jogo.html";
 }
 
-// ================= JOGO =================
+
+// =========================================================
+// ========================= JOGO ==========================
+// =========================================================
 
 let cenaAtual = 3;
 
-// Função chamada automaticamente quando abre jogo.html
+const VIDEO_CENA1 = "Cena1.mp4";
+
+// ================= CARREGAR JOGO =================
 function carregarJogo() {
 
     let dados = localStorage.getItem("personagem");
@@ -667,15 +706,20 @@ function carregarJogo() {
 
     personagem = JSON.parse(dados);
 
-    // Caso ainda não exista histórico, cria um vazio
     if (!personagem.historico) {
         personagem.historico = "";
     }
 
-    // Como ainda não colocamos a escolha de vestimenta no HTML,
-    // deixamos poções com valor padrão 0 se ainda não existir
     if (personagem.pot === undefined) {
         personagem.pot = 0;
+    }
+
+    if (!personagem.runId) {
+        personagem.runId = Date.now();
+    }
+
+    if (!personagem.dataRun) {
+        personagem.dataRun = new Date().toLocaleString("pt-BR");
     }
 
     cenaAtual = 3;
@@ -684,32 +728,68 @@ function carregarJogo() {
 }
 
 // ================= FICHA DO PERSONAGEM =================
-
 function montarFichaPersonagem() {
+
+    let tituloPersonagem = "";
+
+    if (personagem.sexo === "feminino") {
+        tituloPersonagem = `${personagem.nome}, a Maga de ${personagem.mago}`;
+    } else {
+        tituloPersonagem = `${personagem.nome}, o Mago de ${personagem.mago}`;
+    }
+
     return `
         <div class="ficha-personagem">
-            <h3>${personagem.nome}, o Mago de ${personagem.mago}</h3>
+            <div class="ficha-topo">
 
-            <p>
-                <strong>Vitalidade:</strong> ${personagem.vital}
-                |
-                <strong>Magia:</strong> ${personagem.mag}
-                |
-                <strong>Força:</strong> ${personagem.forca}
-                |
-                <strong>Defesa:</strong> ${personagem.def}
-                |
-                <strong>Ouro:</strong> ${personagem.ouro}
-                |
-                <strong>Poções:</strong> ${personagem.pot}
-            </p>
+                <div class="perfil-personagem">
+                    <img src="${imagemPerfil()}" alt="Perfil do personagem">
+                </div>
+
+                <div class="info-personagem">
+                    <h3>${tituloPersonagem}</h3>
+
+                    <p>
+                        <strong>Vitalidade:</strong> ${personagem.vital}
+                        |
+                        <strong>Magia:</strong> ${personagem.mag}
+                        |
+                        <strong>Força:</strong> ${personagem.forca}
+                        |
+                        <strong>Defesa:</strong> ${personagem.def}
+                        |
+                        <strong>Ouro:</strong> ${personagem.ouro}
+                        |
+                        <strong>Poções:</strong> ${personagem.pot}
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    `;
+}
+
+// ================= VÍDEO DA CENA =================
+function montarVideoCena(caminhoVideo) {
+    return `
+        <div class="area-video">
+            <video 
+                autoplay 
+                loop 
+                playsinline
+                disablepictureinpicture
+                controlslist="nodownload nofullscreen noremoteplayback"
+                oncontextmenu="return false"
+                tabindex="-1"
+            >
+                <source src="${caminhoVideo}" type="video/mp4">
+                Seu navegador não suporta vídeo.
+            </video>
         </div>
     `;
 }
 
 // ================= ESCOLHA 3 =================
-// Bifurcação na floresta proibida
-
 function mostrarCena3() {
 
     let game = document.getElementById("game");
@@ -740,6 +820,8 @@ function mostrarCena3() {
                 </button>
             </div>
         </div>
+
+        ${montarVideoCena(VIDEO_CENA1)}
     `;
 }
 
@@ -789,12 +871,10 @@ function resolverCena3(escolha) {
 
     salvarPersonagem();
 
-    mostrarResultado(resultado, "mostrarCena4()");
+    mostrarResultado(resultado, "mostrarCena4()", VIDEO_CENA1);
 }
 
 // ================= ESCOLHA 4 =================
-// Batalha contra goblins
-
 function mostrarCena4() {
 
     let game = document.getElementById("game");
@@ -825,6 +905,8 @@ function mostrarCena4() {
                 </button>
             </div>
         </div>
+
+        ${montarVideoCena(VIDEO_CENA1)}
     `;
 }
 
@@ -886,12 +968,10 @@ function resolverCena4(escolha) {
 
     salvarPersonagem();
 
-    mostrarResultado(resultado, "mostrarCena5()");
+    mostrarResultado(resultado, "mostrarCena5()", VIDEO_CENA1);
 }
 
 // ================= ESCOLHA 5 =================
-// Entrada da caverna / vulcão adormecido
-
 function mostrarCena5() {
 
     let game = document.getElementById("game");
@@ -926,6 +1006,8 @@ function mostrarCena5() {
                 </button>
             </div>
         </div>
+
+        ${montarVideoCena(VIDEO_CENA1)}
     `;
 }
 
@@ -985,12 +1067,11 @@ function resolverCena5(escolha) {
 
     salvarPersonagem();
 
-    mostrarResultadoFinal(resultado);
+    mostrarResultadoFinal(resultado, VIDEO_CENA1);
 }
 
 // ================= RESULTADOS =================
-
-function mostrarResultado(textoResultado, proximaFuncao) {
+function mostrarResultado(textoResultado, proximaFuncao, videoCena) {
 
     let game = document.getElementById("game");
 
@@ -1006,10 +1087,12 @@ function mostrarResultado(textoResultado, proximaFuncao) {
                 Continuar
             </button>
         </div>
+
+        ${montarVideoCena(videoCena)}
     `;
 }
 
-function mostrarResultadoFinal(textoResultado) {
+function mostrarResultadoFinal(textoResultado, videoCena) {
 
     let game = document.getElementById("game");
 
@@ -1027,16 +1110,176 @@ function mostrarResultadoFinal(textoResultado) {
                 As escolhas 3, 4 e 5 já foram concluídas.
                 A próxima etapa pode ser a rolagem do dado do bufão ou a batalha contra o chefe.
             </p>
-
-            <button onclick="window.location.href='index.html'">
+            
+            <button onclick="encerrarRun()">
                 Voltar ao Menu
             </button>
         </div>
+
+        ${montarVideoCena(videoCena)}
     `;
 }
 
-// ================= SALVAR =================
-
+// ================= SALVAR PERSONAGEM ATUAL =================
 function salvarPersonagem() {
     localStorage.setItem("personagem", JSON.stringify(personagem));
 }
+
+
+// =========================================================
+// ======================= HISTÓRICO =======================
+// =========================================================
+
+// Verifica se existe pelo menos uma run salva e libera o botão Histórico no index
+document.addEventListener("DOMContentLoaded", function () {
+
+    const btnHistorico = document.getElementById("btnHistorico");
+
+    if (!btnHistorico) {
+        return;
+    }
+
+    let historicoRuns = JSON.parse(localStorage.getItem("historicoRuns")) || [];
+
+    if (historicoRuns.length > 0) {
+        btnHistorico.style.display = "block";
+    } else {
+        btnHistorico.style.display = "none";
+    }
+});
+
+// Encerra a run atual, salva na lista de runs e volta para o menu
+function encerrarRun() {
+
+    if (!personagem.historico) {
+        personagem.historico = "";
+    }
+
+    personagem.historico += "\nFim desta parte da jornada.";
+    personagem.historico += `\nAtributos finais: Vitalidade ${personagem.vital}, Magia ${personagem.mag}, Força ${personagem.forca}, Defesa ${personagem.def}, Ouro ${personagem.ouro}, Poções ${personagem.pot}.`;
+
+    let historicoRuns = JSON.parse(localStorage.getItem("historicoRuns")) || [];
+
+    let novaRun = {
+        id: personagem.runId || Date.now(),
+        data: personagem.dataRun || new Date().toLocaleString("pt-BR"),
+        nome: personagem.nome,
+        sexo: personagem.sexo,
+        mago: personagem.mago,
+        vital: personagem.vital,
+        mag: personagem.mag,
+        forca: personagem.forca,
+        def: personagem.def,
+        ouro: personagem.ouro,
+        pot: personagem.pot,
+        texto: personagem.historico
+    };
+
+    historicoRuns.push(novaRun);
+
+    localStorage.setItem("historicoRuns", JSON.stringify(historicoRuns));
+
+    localStorage.removeItem("personagem");
+
+    window.location.href = "index.html";
+}
+
+// Carrega todas as runs salvas na página historico.html
+function carregarHistorico() {
+
+    const areaHistorico = document.getElementById("textoHistorico");
+
+    if (!areaHistorico) {
+        return;
+    }
+
+    let historicoRuns = JSON.parse(localStorage.getItem("historicoRuns")) || [];
+
+    if (historicoRuns.length === 0) {
+        areaHistorico.innerHTML = `
+            <p>Nenhuma run encontrada.</p>
+        `;
+        return;
+    }
+
+    areaHistorico.innerHTML = "";
+
+    for (let i = 0; i < historicoRuns.length; i++) {
+
+        let run = historicoRuns[i];
+
+        let titulo = "";
+
+        if (run.sexo === "feminino") {
+            titulo = `${run.nome}, a Maga de ${run.mago}`;
+        } else {
+            titulo = `${run.nome}, o Mago de ${run.mago}`;
+        }
+
+        areaHistorico.innerHTML += `
+            <div class="run-historico">
+                <h3>Run ${i + 1} - ${titulo}</h3>
+
+                <p><strong>Data:</strong> ${run.data}</p>
+
+                <p>
+                    <strong>Atributos finais:</strong>
+                    Vitalidade ${run.vital} |
+                    Magia ${run.mag} |
+                    Força ${run.forca} |
+                    Defesa ${run.def} |
+                    Ouro ${run.ouro} |
+                    Poções ${run.pot}
+                </p>
+
+                <p>${run.texto.replace(/\n/g, "<br>")}</p>
+            </div>
+        `;
+    }
+}
+
+// Apaga todas as runs salvas
+function limparHistorico() {
+
+    localStorage.removeItem("historicoRuns");
+
+    alert("Histórico apagado!");
+
+    window.location.href = "index.html";
+}
+
+// ================= TROCAR FUNDO DO INDEX =================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const botaoFundo = document.getElementById("fundo-toggle");
+
+    // Se a página atual não tiver esse botão, não faz nada
+    if (!botaoFundo) {
+        return;
+    }
+
+    const fundoSalvo = localStorage.getItem("fundoIndex");
+
+    // Se o usuário já tinha escolhido escuro antes, mantém escuro
+    if (fundoSalvo === "escuro") {
+        document.body.classList.add("fundo-escuro");
+        botaoFundo.checked = true;
+    } else {
+        document.body.classList.remove("fundo-escuro");
+        botaoFundo.checked = false;
+    }
+
+    botaoFundo.addEventListener("change", function () {
+
+        if (botaoFundo.checked) {
+            document.body.classList.add("fundo-escuro");
+            localStorage.setItem("fundoIndex", "escuro");
+        } else {
+            document.body.classList.remove("fundo-escuro");
+            localStorage.setItem("fundoIndex", "claro");
+        }
+
+    });
+
+});
