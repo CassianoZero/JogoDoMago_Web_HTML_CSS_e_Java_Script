@@ -1,295 +1,539 @@
 /* =========================================================
-   COMANDOS GERAIS
-   Estilos usados em mais de uma página
+   COMANDOS GERAIS - Estilos usados em mais de uma página
 ========================================================= */
 
 body {
-    background-position: top center;
-    background-repeat: no-repeat;
-    background-color: rgba(9, 11, 23, 0.771);
+    background-position: top center; /* Posiciona a imagem de fundo no topo e centralizada horizontalmente */
+    background-repeat: no-repeat; /* Impede que a imagem de fundo se repita */
+    background-color: rgba(9, 11, 23, 0.771); /* Define uma cor de fundo azul escura com transparência */
+    color: rgb(226, 232, 240); /* Define a cor padrão dos textos */
+    font-family: Arial, sans-serif; /* Define a fonte principal da página */
+    text-align: center; /* Centraliza textos e elementos inline */
 
-    color: rgb(226, 232, 240);
-    font-family: Arial, sans-serif;
-    text-align: center;
-
-    margin: 0;
+    margin: 0; /* Remove a margem padrão do navegador */
 }
 
-h1, 
-h2 {
-    color: rgb(56, 189, 248);
-    border: 5px solid rgb(56, 189, 248);
-
-    margin: 10px;
-    padding: 12px 25px;
-
-    background-color: rgba(9, 11, 23, 0.771);
-    display: inline-block;
-
-    border-radius: 12px;
+h1, h2 {
+    color: rgb(56, 189, 248); /* Define a cor azul clara do texto dos títulos */
+    border: 5px solid rgb(56, 189, 248); /* Cria uma borda azul clara ao redor dos títulos */
+    margin: 10px; /* Define espaço externo ao redor dos títulos */
+    padding: 12px 25px; /* Define espaço interno dentro dos títulos */
+    background-color: rgba(9, 11, 23, 0.771); /* Coloca fundo escuro translúcido nos títulos */
+    display: inline-block; /* Faz o fundo e a borda ocuparem apenas o tamanho do conteúdo */
+    border-radius: 12px; /* Arredonda os cantos da borda */
 }
 
 input {
-    padding: 10px;
-    margin: 10px;
-
-    border-radius: 5px;
-    border: none;
+    padding: 10px; /* Cria espaço interno no campo de texto */
+    margin: 10px; /* Cria espaço externo ao redor do campo */
+    border-radius: 5px; /* Arredonda os cantos do input */
+    border: none; /* Remove a borda padrão do navegador */
 }
 
 /* Botão padrão do projeto */
 button {
-    display: block;
-    margin: 10px auto;
-
-    border: none;
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    background-color: rgb(56, 189, 248);
-    color: rgb(15, 23, 42);
-
-    font-weight: bold;
+    display: block; /* Faz o botão ocupar uma linha própria */
+    margin: 10px auto; /* Dá margem vertical e centraliza horizontalmente */
+    border: none; /* Remove a borda padrão do botão */
+    border-radius: 10px; /* Arredonda os cantos do botão */
+    cursor: pointer; /* Mostra a mãozinha ao passar o mouse */
+    background-color: rgb(56, 189, 248); /* Define o fundo azul claro do botão */
+    color: rgb(15, 23, 42); /* Define a cor escura do texto do botão */
+    font-weight: bold; /* Deixa o texto do botão em negrito */
 }
 
 button:hover {
-    background-color: rgb(125, 211, 252);
+    background-color: rgb(125, 211, 252); /* Muda a cor do botão ao passar o mouse */
 }
 
 /* Botão desabilitado */
 button:disabled {
-    background-color: gray;
-    color: rgb(220, 220, 220);
-
-    cursor: not-allowed;
-    opacity: 0.6;
+    background-color: gray; /* Deixa o botão cinza quando estiver bloqueado */
+    color: rgb(220, 220, 220); /* Deixa o texto mais claro no botão bloqueado */
+    cursor: not-allowed; /* Mostra que o botão não pode ser clicado */
+    opacity: 0.6; /* Deixa o botão mais transparente */
 }
 
 /* Botão escolhido pelo jogador */
 .botao-escolhido {
-    background-color: rgb(34, 197, 94);
-    color: white;
+    background-color: rgb(34, 197, 94); /* Deixa o botão escolhido verde */
+    color: white; /* Deixa o texto do botão escolhido branco */
 }
 
 
 /* =========================================================
-   PÁGINA INDEX
-   Tela inicial do jogo
+   PÁGINA INDEX - Tela inicial do jogo
 ========================================================= */
 
 .pagina-index {
-    background-image: url(JogoMagoTela.png);
+    position: relative; /* Permite colocar uma camada de fundo por cima */
+    isolation: isolate; /* Mantém as camadas organizadas dentro da página */
 
-    /* Faz a imagem preencher a tela */
-    background-size: cover;
-    /* Centraliza a imagem */
-    background-position: center;
-    /* Impede que a imagem se repita */
-    background-repeat: no-repeat;
-    /* Mantém o fundo parado enquanto a página rola */
-    background-attachment: fixed;
-    /* Garante que a página tenha pelo menos a altura da tela */
-    min-height: 100vh;
-    background-color: rgb(0, 0, 0);
+    background-image: url(JogoMagoTela.png); /* Fundo claro inicial */
+    background-size: cover; /* Faz a imagem preencher a tela */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Impede repetição */
+    background-attachment: fixed; /* Deixa o fundo fixo */
+
+    min-height: 100vh; /* Garante altura mínima da tela */
+    background-color: rgb(0, 0, 0); /* Fundo de segurança */
+}
+
+/* Camada do fundo escuro */
+.pagina-index::before {
+    content: ""; /* Cria uma camada vazia */
+    position: fixed; /* Fixa a camada na tela */
+    inset: 0; /* Faz a camada ocupar a tela inteira */
+
+    background-image: url(JogoMagoTelaEscuro.png); /* Imagem escura */
+    background-size: cover; /* Faz a imagem preencher a tela */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Impede repetição */
+
+    opacity: 0; /* Começa invisível, mostrando o fundo claro */
+    transition: opacity 0.8s ease; /* Faz a troca ficar suave */
+
+    z-index: -1; /* Coloca a camada atrás do conteúdo */
+}
+
+/* Quando ativar o modo escuro, a imagem escura aparece */
+.pagina-index.fundo-escuro::before {
+    opacity: 1;
 }
 
 /* Botões grandes da tela inicial */
 .pagina-index button {
-    width: 200px;
-    padding: 30px;
-
-    font-size: 25px;
-
-    background-color: rgba(9, 11, 23, 0.771);
-    color: white;
-
-    border: 1px solid rgba(56, 189, 248, 0.8);
-    border-radius: 8px;
+    width: 200px; /* Define largura fixa dos botões do menu */
+    padding: 30px; /* Aumenta o espaço interno dos botões */
+    font-size: 25px; /* Aumenta o tamanho do texto dos botões */
+    background-color: rgba(9, 11, 23, 0.771); /* Define fundo escuro translúcido */
+    color: white; /* Deixa o texto branco */
+    border: 1px solid rgba(56, 189, 248, 0.8); /* Cria borda azul fina */
+    border-radius: 8px; /* Arredonda os cantos dos botões */
 }
 
 .pagina-index button:hover {
-    background-color: #38bdf8;
-    color: #0f172a;
+    background-color: #38bdf8; /* Muda o fundo para azul claro ao passar o mouse */
+    color: #0f172a; /* Muda o texto para azul escuro ao passar o mouse */
 }
 
 /* Rodapé da página inicial */
 .pagina-index footer {
-    position: fixed;
-    bottom: 10px;
-
-    width: 100%;
-
-    font-size: 12px;
-    color: rgb(3, 3, 3);
-
-    text-align: center;
+    position: fixed; /* Fixa o rodapé na tela */
+    bottom: 10px; /* Coloca o rodapé a 10px do fundo */
+    width: 100%; /* Faz o rodapé ocupar toda a largura da tela */
+    font-size: 12px; /* Define texto pequeno no rodapé */
+    color: rgb(3, 3, 3); /* Define cor escura para o texto */
+    text-align: center; /* Centraliza o texto do rodapé */
 }
 
 
 /* =========================================================
-   PÁGINA PERSONAGEM
-   Tela de criação e escolha do personagem
+   PÁGINA PERSONAGEM - Tela de criação e escolha do personagem
 ========================================================= */
 
 .pagina-personagem {
-    background-image: url(JogoMagoTelaPersonagem.png);
-    /* Faz a imagem preencher a tela */
-    background-size: cover;
-    /* Centraliza a imagem */
-    background-position: center;
-    /* Impede que a imagem se repita */
-    background-repeat: no-repeat;
-    /* Mantém o fundo parado enquanto a página rola */
-    background-attachment: fixed;
-    /* Garante que a página tenha pelo menos a altura da tela */
-    min-height: 100vh;
-    background-color: rgb(0, 0, 0);
+    background-image: url(JogoMagoTelaPersonagem.png); /* Define a imagem de fundo da criação de personagem */
+    background-size: cover; /* Faz a imagem preencher toda a tela */
+    background-position: center; /* Centraliza a imagem de fundo */
+    background-repeat: no-repeat; /* Impede que a imagem se repita */
+    background-attachment: fixed; /* Mantém o fundo parado enquanto a página rola */
+    min-height: 100vh; /* Garante altura mínima igual à tela */
+    background-color: rgb(0, 0, 0); /* Usa preto como fundo caso a imagem não carregue */
 }
 
 /* Caixa principal das escolhas */
 .pagina-personagem .container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 40px;
-
-    margin: 30px auto;
-    padding: 20px;
-
-    width: 90%;
-    max-width: 1200px;
-
-    background-color: rgba(15, 23, 42, 0.85);
-
-    border: 2px solid rgb(56, 189, 248);
-    border-radius: 15px;
+    margin: 30px auto; /* Cria espaço vertical e centraliza a caixa */
+    padding: 20px; /* Cria espaço interno dentro da caixa */
+    width: 90%; /* Faz a caixa ocupar 90% da largura disponível */
+    max-width: 1200px; /* Limita a largura máxima da caixa */
+    background-color: rgba(15, 23, 42, 0.85); /* Define fundo escuro translúcido */
+    border: 2px solid rgb(56, 189, 248); /* Cria borda azul ao redor da caixa */
+    border-radius: 15px; /* Arredonda os cantos da caixa */
 }
 
-/* Coluna dos botões */
+/* Caixa da escolha de sexo */
+.pagina-personagem .container-sexo {
+    display: grid; /* Organiza o conteúdo em grade */
+    grid-template-columns: 280px 260px; /* Cria duas colunas: opções e imagem */
+    justify-content: center; /* Centraliza as colunas dentro da caixa */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+    gap: 60px; /* Define espaço entre as colunas */
+}
+
+/* Caixa da escolha de classe */
+.pagina-personagem .container-classe {
+    display: grid; /* Organiza o conteúdo em grade */
+    grid-template-columns: 280px 260px 260px; /* Cria três colunas: botões, imagem e atributos */
+    justify-content: center; /* Centraliza as colunas dentro da caixa */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+    gap: 40px; /* Define espaço entre as colunas */
+}
+
+/* Coluna dos botões da página personagem */
 .pagina-personagem .opcoes {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    display: flex; /* Usa flexbox para organizar os botões */
+    flex-direction: column; /* Coloca os botões um embaixo do outro */
+    align-items: center; /* Centraliza os botões na coluna */
+    gap: 15px; /* Define espaço entre os botões */
 }
 
 /* Botões da página personagem */
 .pagina-personagem button {
-    width: 220px;
-    padding: 10px 18px;
-
-    font-size: 16px;
+    width: 220px; /* Define largura fixa dos botões */
+    padding: 10px 18px; /* Define espaço interno dos botões */
+    font-size: 16px; /* Define tamanho do texto dos botões */
 }
 
-/* Imagem do personagem */
-.pagina-personagem .preview img {
-    width: 220px;
-    height: auto;
+/* Área que segura a imagem de preview */
+.pagina-personagem .preview {
+    display: flex; /* Usa flexbox para centralizar a imagem */
+    justify-content: center; /* Centraliza a imagem horizontalmente */
+    align-items: center; /* Centraliza a imagem verticalmente */
+}
 
-    border-radius: 12px;
+/* Imagem do personagem na tela de criação */
+.pagina-personagem .preview img {
+    width: 220px; /* Define largura da imagem */
+    height: auto; /* Mantém a proporção original da imagem */
+    border-radius: 12px; /* Arredonda os cantos da imagem */
 }
 
 /* Caixa dos atributos */
 .atributos {
-    min-width: 220px;
-    padding: 15px;
-
-    text-align: left;
-
-    background-color: rgba(9, 11, 23, 0.6);
-
-    border: 1px solid rgba(56, 189, 248, 0.8);
-    border-radius: 12px;
+    width: 230px; /* Define largura fixa da caixa de atributos */
+    min-height: 190px; /* Define altura mínima da caixa */
+    display: flex; /* Usa flexbox dentro da caixa */
+    flex-direction: column; /* Organiza os textos em coluna */
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    text-align: left; /* Alinha o texto à esquerda */
+    background-color: rgba(9, 11, 23, 0.6); /* Define fundo escuro translúcido */
+    border: 1px solid rgba(56, 189, 248, 0.8); /* Cria borda azul fina */
+    border-radius: 12px; /* Arredonda os cantos da caixa */
+    padding: 15px; /* Cria espaço interno na caixa */
 }
 
 .atributos h3 {
-    margin-top: 0;
-
-    color: rgb(56, 189, 248);
+    margin-top: 0; /* Remove margem superior do título dos atributos */
+    color: rgb(56, 189, 248); /* Define o título dos atributos em azul */
 }
 
 .atributos p {
-    margin: 8px 0;
-
-    font-size: 15px;
+    margin: 6px 0; /* Define espaço vertical entre os parágrafos */
+    font-size: 15px; /* Define tamanho do texto dos atributos */
 }
 
 
 /* =========================================================
-   PÁGINA DO JOGO
-   Tela da jornada do mago
+   PÁGINA DO JOGO - Tela da jornada do mago
 ========================================================= */
 
 .pagina-jogo {
-    background-color: rgba(9, 11, 23, 0.95);
+    background-image: url(JogoMagoTelaPersonagem.png); /* Define a imagem de fundo da página do jogo */
+    background-size: cover; /* Faz a imagem cobrir toda a tela */
+    background-position: center; /* Centraliza a imagem de fundo */
+    background-repeat: no-repeat; /* Impede que a imagem se repita */
+    background-attachment: fixed; /* Mantém o fundo parado ao rolar */
+    min-height: 100vh; /* Garante altura mínima igual à tela */
+    background-color: rgb(0, 0, 0); /* Usa preto caso a imagem não carregue */
+}
 
+/* Título da tela do jogo */
+.pagina-jogo h2 {
+    margin: 8px auto; /* Centraliza o título e reduz o espaço externo */
+    padding: 10px 24px; /* Define espaço interno do título */
+    font-size: 24px; /* Define tamanho do texto do título */
+}
+
+/* Caixa principal do jogo */
+#game {
+    width: 82%; /* Define a largura da área principal */
+    max-width: 1050px; /* Limita a largura máxima */
+    height: calc(100vh - 95px); /* Define altura baseada na tela menos o espaço do título */
+    margin: 10px auto; /* Centraliza a caixa e cria espaço externo */
+    padding: 14px; /* Cria espaço interno */
+    background-color: rgba(15, 23, 42, 0.9); /* Define fundo escuro quase opaco */
+    border: 2px solid rgb(56, 189, 248); /* Cria borda azul */
+    border-radius: 15px; /* Arredonda os cantos */
+    box-sizing: border-box; /* Inclui padding e borda no cálculo do tamanho */
+    display: flex; /* Usa flexbox para organizar o conteúdo */
+    flex-direction: column; /* Organiza os elementos de cima para baixo */
+    justify-content: flex-start; /* Começa o conteúdo no topo */
+}
+
+/* Ficha do personagem */
+.ficha-personagem {
+    margin-bottom: 10px; /* Cria espaço abaixo da ficha */
+    padding: 10px; /* Cria espaço interno na ficha */
+    background-color: rgba(9, 11, 23, 0.75); /* Define fundo escuro translúcido */
+    border: 1px solid rgba(56, 189, 248, 0.8); /* Cria borda azul fina */
+    border-radius: 12px; /* Arredonda os cantos da ficha */
+}
+
+/* Área interna da ficha com foto e informações */
+.ficha-topo {
+    display: flex; /* Coloca a foto e as informações lado a lado */
+    align-items: center; /* Alinha verticalmente ao centro */
+    justify-content: flex-start; /* Começa os elementos pela esquerda */
+    gap: 16px; /* Define espaço entre a foto e as informações */
+}
+
+/* Caixa da imagem de perfil */
+.perfil-personagem {
+    flex-shrink: 0; /* Impede que a imagem encolha */
+}
+
+/* Imagem de perfil do personagem */
+.perfil-personagem img {
+    width: 85px; /* Define largura da imagem de perfil */
+    height: 85px; /* Define altura da imagem de perfil */
+    object-fit: cover; /* Corta a imagem para preencher o quadrado sem distorcer */
+    border-radius: 12px; /* Arredonda os cantos da imagem */
+    border: 2px solid rgb(56, 189, 248); /* Cria borda azul ao redor da imagem */
+    display: block; /* Remove pequenos espaços extras abaixo da imagem */
+}
+
+/* Área do nome e dos atributos na ficha */
+.info-personagem {
+    flex: 1; /* Faz a área ocupar todo o espaço restante */
+    text-align: center; /* Centraliza o nome e os atributos */
+}
+
+.info-personagem h3 {
+    margin: 6px 0; /* Define espaço vertical do nome */
+    font-size: 18px; /* Define tamanho do nome */
+}
+
+.info-personagem p {
+    margin: 6px 0; /* Define espaço vertical dos atributos */
+    font-size: 15px; /* Define tamanho do texto dos atributos */
+}
+
+/* Texto da cena */
+.cena-jogo {
+    margin-top: 6px; /* Cria pequeno espaço acima da cena */
+}
+
+.cena-jogo h3 {
+    margin: 8px 0; /* Define espaço vertical do título da cena */
+    font-size: 19px; /* Define tamanho do título da cena */
+}
+
+.cena-jogo p {
+    line-height: 1.4; /* Define espaçamento entre linhas do texto */
+    font-size: 16px; /* Define tamanho do texto da cena */
+    margin: 8px 0; /* Define espaço externo do parágrafo */
+}
+
+/* Área dos botões das escolhas */
+.opcoes-jogo {
+    margin-top: 8px; /* Cria espaço acima dos botões */
+}
+
+/* Botões das escolhas */
+.opcoes-jogo button {
+    width: 75%; /* Define largura dos botões de escolha */
+    max-width: 700px; /* Limita a largura máxima dos botões */
+    padding: 10px; /* Define espaço interno dos botões */
+    margin: 8px auto; /* Centraliza os botões e cria espaço vertical */
+    font-size: 15px; /* Define tamanho do texto dos botões */
+}
+
+/* Resultado das escolhas */
+.resultado-jogo {
+    margin-top: 10px; /* Cria espaço acima da caixa de resultado */
+    padding: 14px; /* Cria espaço interno no resultado */
+    background-color: rgba(9, 11, 23, 0.8); /* Define fundo escuro translúcido */
+    border: 1px solid rgba(34, 197, 94, 0.8); /* Cria borda verde no resultado */
+    border-radius: 12px; /* Arredonda os cantos da caixa de resultado */
+}
+
+.resultado-jogo h3 {
+    color: rgb(34, 197, 94); /* Deixa o título do resultado verde */
+}
+
+
+/* =========================================================
+   ÁREA DE VÍDEO DO JOGO
+========================================================= */
+
+.area-video {
+    width: 70%; /* Define a largura da área do vídeo */
+    max-width: 760px; /* Limita a largura máxima do vídeo */
+    aspect-ratio: 16 / 9; /* Mantém proporção de vídeo widescreen */
+    margin: 10px auto 0; /* Centraliza o vídeo e cria espaço acima */
+    background-color: black; /* Define fundo preto atrás do vídeo */
+    border: 2px solid rgb(56, 189, 248); /* Cria borda azul ao redor do vídeo */
+    border-radius: 15px; /* Arredonda os cantos da área do vídeo */
+    overflow: hidden; /* Esconde qualquer parte do vídeo que passar da borda */
+    flex-shrink: 1; /* Permite que a área reduza se necessário */
+}
+
+/* Vídeo sem interação */
+.area-video video {
+    width: 100%; /* Faz o vídeo ocupar toda a largura da área */
+    height: 100%; /* Faz o vídeo ocupar toda a altura da área */
+    display: block; /* Remove espaços extras abaixo do vídeo */
+    object-fit: contain; /* Mostra o vídeo inteiro sem cortar */
+    background-color: black; /* Usa preto nas sobras laterais ou superiores */
+    pointer-events: none; /* Impede clique e interação direta com o vídeo */
+    user-select: none; /* Impede seleção do vídeo pelo usuário */
+}
+
+/* =========================================================
+   PÁGINA HISTÓRICO - Histórico das runs
+========================================================= */
+
+.pagina-historico {
+    background-image: url(JogoMagoTelaPersonagem.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    background-color: rgb(0, 0, 0);
     color: rgb(226, 232, 240);
     font-family: Arial, sans-serif;
     text-align: center;
-
     margin: 0;
 }
 
-#game {
-    width: 85%;
-    max-width: 1000px;
-
-    margin: 25px auto;
+.caixa-historico {
+    width: 80%;
+    max-width: 950px;
+    margin: 30px auto;
     padding: 25px;
-
     background-color: rgba(15, 23, 42, 0.9);
-
     border: 2px solid rgb(56, 189, 248);
     border-radius: 15px;
 }
 
-.ficha-personagem {
+#textoHistorico {
+    text-align: left;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.run-historico {
     margin-bottom: 25px;
-    padding: 15px;
-
+    padding: 18px;
     background-color: rgba(9, 11, 23, 0.75);
-
     border: 1px solid rgba(56, 189, 248, 0.8);
     border-radius: 12px;
 }
 
-.ficha-personagem p {
-    margin: 8px 0;
+.run-historico h3 {
+    color: rgb(56, 189, 248);
+    margin-top: 0;
 }
 
-.cena-jogo {
-    margin-top: 20px;
-}
+/* =========================================================
+   BOTÃO DE TROCA DE FUNDO DO INDEX
+========================================================= */
 
-.cena-jogo p {
-    line-height: 1.6;
-    font-size: 17px;
-}
+.area-troca-fundo {
+    position: fixed; /* Fixa o botão perto do rodapé */
+    bottom: 45px; /* Distância acima do rodapé */
+    left: 50%; /* Move para o meio da tela */
+    transform: translateX(-50%); /* Centraliza de verdade */
 
-.opcoes-jogo {
-    margin-top: 20px;
-}
+    padding: 10px 14px;
+    width: 190px;
 
-.opcoes-jogo button {
-    width: 80%;
-    max-width: 700px;
+    background-color: rgba(9, 11, 23, 0.771);
 
-    padding: 15px;
-    margin: 12px auto;
-
-    font-size: 16px;
-}
-
-.resultado-jogo {
-    margin-top: 20px;
-    padding: 20px;
-
-    background-color: rgba(9, 11, 23, 0.8);
-
-    border: 1px solid rgba(34, 197, 94, 0.8);
+    border: 1px solid rgba(56, 189, 248, 0.8);
     border-radius: 12px;
+
+    text-align: center;
 }
 
-.resultado-jogo h3 {
-    color: rgb(34, 197, 94);
+.area-troca-fundo p {
+    margin: 0 0 8px 0;
+
+    color: rgb(226, 232, 240);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.theme-switch {
+    position: relative;
+
+    display: inline-block;
+
+    width: 60px;
+    height: 32px;
+}
+
+.theme-switch input {
+    opacity: 0;
+
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+
+    cursor: pointer;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgb(226, 232, 240);
+
+    border: 2px solid rgb(56, 189, 248);
+    border-radius: 30px;
+
+    transition: 0.4s;
+}
+
+.slider:before {
+    content: "";
+
+    position: absolute;
+
+    height: 22px;
+    width: 22px;
+
+    left: 4px;
+    bottom: 3px;
+
+    background-color: white;
+
+    border-radius: 50%;
+
+    transition: 0.4s;
+}
+
+.slider:after {
+    content: "☀️";
+
+    position: absolute;
+
+    left: 7px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 14px;
+
+    transition: 0.4s;
+}
+
+.theme-switch input:checked + .slider {
+    background-color: rgb(15, 23, 42);
+}
+
+.theme-switch input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.theme-switch input:checked + .slider:after {
+    content: "🌙";
+
+    left: 34px;
 }
