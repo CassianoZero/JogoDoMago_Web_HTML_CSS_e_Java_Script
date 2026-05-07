@@ -17,6 +17,7 @@
 
     <!-- Título principal da página -->
     <h1>Aventura do Mago Coletor de Cristais</h1>
+    <br>
 
     <!-- Div: "caixa" de organização. Usada para agrupar elementos -->
     <div>
@@ -30,8 +31,22 @@
         <br><br>
         <button onclick="alert('Sistema de save ainda não implementado')">Carregar Save</button>
         <br><br>
+        <button id="btnHistorico" onclick="irHistorico()" style="display: none;">Histórico</button>
+        <br>
         <button onclick="alert('Projeto desenvolvido para aula de Web Design')">Sobre</button>
         <br><br>
+
+    </div>
+
+    <!-- Botão para trocar o fundo claro/escuro da tela inicial -->
+     <div class="area-troca-fundo">
+
+    <p>Fundo da tela</p>
+
+    <label class="theme-switch">
+        <input type="checkbox" id="fundo-toggle">
+        <span class="slider"></span>
+    </label>
 
     </div>
 
